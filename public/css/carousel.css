@@ -9,7 +9,7 @@ body {
 }
 
 /* CUSTOMIZE THE CAROUSEL
-  -------------------------------------------------- */
+-------------------------------------------------- */
 
 /* Carousel base class */
 .carousel {
@@ -27,7 +27,7 @@ body {
 }
 
 /* MARKETING CONTENT
-  -------------------------------------------------- */
+-------------------------------------------------- */
 
 /* Center align the text within the three columns below the carousel */
 .marketing .col-lg-4 {
@@ -42,7 +42,7 @@ body {
 /* rtl:end:ignore */
 
 /* Featurettes
-  ------------------------- */
+------------------------- */
 
 .featurette-divider {
   margin: 5rem 0; /* Space out the Bootstrap <hr> more */
@@ -57,7 +57,7 @@ body {
 /* rtl:end:remove */
 
 /* RESPONSIVE CSS
-  -------------------------------------------------- */
+-------------------------------------------------- */
 
 @media (min-width: 40em) {
   /* Bump up size of carousel content */
@@ -76,12 +76,4 @@ body {
   .featurette-heading {
     margin-top: 7rem;
   }
-}
-
-.work-in-progress {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: auto;
-  padding: 10%;
 }

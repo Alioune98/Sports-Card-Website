@@ -49,7 +49,3 @@
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
 }
-
-.users-name {
-  display: flex;
-}

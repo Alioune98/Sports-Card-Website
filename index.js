@@ -289,6 +289,7 @@ app.get('/createpc', (req, res) => {
 
 //END OF TABLE CREATIONS////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+//GET ROUTES/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Insert Example
 app.get('/customer1', (req, res) => {
   let post = { username: 'John Cena', email: 'youcantseeme@yahoo.com' };
@@ -324,7 +325,23 @@ app.get('/deletecustomer/:id', (req, res) => {
   });
 });
 
-//GET METHODS
+//ADD PRODUCT IN PRODUCTS TABLE
+app.get('/addproduct', (req, res) => {
+  let sql = `INSERT INTO product PRODUCT_CATEGORY (
+    category_id INT NOT NULL AUTO_INCREMENT,
+    name VARCHAR(255),
+    description TEXT(2000),
+    PRIMARY KEY (category_id)
+);      
+`;
+  db.query(sql, (err) => {
+    if (err) {
+      throw err;
+    }
+    res.send('Product Category Table created');
+  });
+});
+
 app.get('/', function (req, res) {
   res.render('home');
 });
