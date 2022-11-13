@@ -77,6 +77,8 @@ const db = mysql.createConnection({
   user: 'root',
   password: '',
   database: 'sportscardwebsite',
+  dateStrings: true,
+  multipleStatements: true,
 });
 
 //Connect to MySQL
@@ -384,6 +386,82 @@ app.get('/protected' /*, checkAuthenticated*/, (req, res) => {
   res.render('cart');
 });
 
+app.get('/admin', (req, res) => {
+  res.render('dashboard');
+});
+
+app.get('/admin/products', (req, res, next) => {
+  var query = `SELECT product_id, product.name as name, price, product_category.name as category, product_inventory.quantity as quantity, product.created_at
+  FROM product 
+  LEFT JOIN product_category
+  ON product_category.category_id = product.category_id
+  LEFT JOIN product_inventory
+  ON product_inventory.id = product.inventory_id`;
+  db.query(query, function (err, data) {
+    if (err) {
+      throw err;
+    } else {
+      res.render('products', {
+        title: 'Node.js MySQL CRUD APPLICATION',
+        sampleData: data,
+      });
+    }
+  });
+});
+
+app.post('/admin/products', function (req, res, next) {
+  var product_name = req.body.product_name;
+  var image_url = req.body.image_url;
+  var price = req.body.price;
+  var category = req.body.category;
+  var categoryId;
+  console.log(category);
+  switch (category) {
+    case 'Baseball':
+      categoryId = 1;
+      break;
+    case 'Basketball':
+      categoryId = 2;
+      break;
+    case 'Football':
+      categoryId = 3;
+      break;
+    case 'Soccer':
+      categoryId = 4;
+      break;
+    case 'Pokemon':
+      categoryId = 5;
+      break;
+  }
+  var query = `INSERT INTO product_inventory (quantity)
+  VALUES (1)`;
+  db.query(query, function (err, data) {
+    if (err) {
+      throw err;
+    } else {
+    }
+  });
+  var query = `INSERT INTO product
+  (name, image, price, category_id)
+  VALUES ("${product_name}", "${image_url}", "${price}", "${categoryId}")`;
+  db;
+  db.query(query, function (err, data) {
+    if (err) {
+      throw err;
+    } else {
+      res.redirect('/admin/products');
+    }
+  });
+});
+
+app.get('/admin/orders', (req, res) => {
+  res.render('orders');
+});
+
+app.get('/admin/users', (req, res) => {
+  res.render('users');
+});
+
 //SOCIAL LOGIN/SIGNUP STRATEGIES///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 passport.use(
@@ -450,8 +528,12 @@ function checkAuthenticated(req, res, next) {
 }
 
 app.delete('/logout', (req, res) => {
-  req.logOut();
-  res.redirect('/login');
+  req.logOut(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect('/login');
+  });
 });
 
 function checkNotAuthenticated(req, res, next) {

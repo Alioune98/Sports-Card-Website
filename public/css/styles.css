@@ -49,3 +49,18 @@
   white-space: nowrap;
   -webkit-overflow-scrolling: touch;
 }
+
+.work-in-progress {
+  margin: 5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logout-btn {
+  width: 10rem;
+  margin: 0 45%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

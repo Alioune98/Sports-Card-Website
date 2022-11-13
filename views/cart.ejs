@@ -1,4 +1,8 @@
 <%- include('partials/header') %>
 <h1 class="work-in-progress">Succesfully logged in!</h1>
 <h1 class="work-in-progress">Welcome, this is your empty shopping cart</h1>
+<h1></h1>
+<form action="/logout?_method=DELETE" method="POST">
+  <button type="submit" class="btn btn-dark logout-btn">Log Out</button>
+</form>
 <%- include('partials/footer') %>
