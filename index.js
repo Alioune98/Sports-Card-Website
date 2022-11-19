@@ -12,41 +12,31 @@ const app = express();
 const flash = require('express-flash');
 const methodOverride = require('method-override');
 const initializePassport = require('./passport-config');
+const multer = require('multer');
+const path = require('path');
 
+const storage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: (req, file, cb) => {
+    return cb(
+      null,
+      `${file.filename}_${Date.now()}${path.extname(file.originalname)}`
+    );
+  },
+});
+
+const upload = multer({
+  storage: storage,
+});
+
+//PASSPORT CONFIGURATION FOR LOGIN/REGISTER (See passport-config.js)
 initializePassport(
   passport,
   (email) => findUserByEmail(email),
   (id) => findUserById(id)
 );
 
-function findUserByEmail(email) {
-  return new Promise((resolve, reject) => {
-    db.query(`SELECT * FROM user WHERE email = ?`, [email], (err, result) => {
-      if (err) {
-        return reject(err);
-      }
-      resolve(result);
-    });
-    return resolve;
-  });
-}
-
-function findUserById(id) {
-  return new Promise((resolve, reject) => {
-    db.query(
-      `SELECT user_id FROM user WHERE user_id = ?`,
-      [id],
-      (err, result) => {
-        if (err) {
-          return reject(err);
-        }
-        resolve(result);
-      }
-    );
-    return resolve;
-  });
-}
-
+//IMPORT CONFIGS
 app.use(express.static(__dirname));
 app.set('view engine', 'ejs');
 app.use(
@@ -54,7 +44,6 @@ app.use(
     extended: true,
   })
 );
-
 app.use(flash());
 app.use(
   session({
@@ -64,13 +53,12 @@ app.use(
   })
 );
 app.use(methodOverride('_method'));
-
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(passport.initialize());
 app.use(passport.session());
 
-//DATABASE SETUP AND CONNECTION
+//DATABASE SETUP AND CONNECTION/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Create connection to sportscardwebsite MySQL DB
 const db = mysql.createConnection({
   host: 'localhost',
@@ -102,7 +90,6 @@ app.get('/createdb', (req, res) => {
 });
 
 //START OF TABLE CREATIONS////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 //Create User Table
 app.get('/createuser', (req, res) => {
   let sql = `CREATE TABLE if not exists USER (
@@ -289,9 +276,8 @@ app.get('/createpc', (req, res) => {
   });
 });
 
-//END OF TABLE CREATIONS////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//DELETE LATER/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//GET ROUTES/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //Insert Example
 app.get('/customer1', (req, res) => {
   let post = { username: 'John Cena', email: 'youcantseeme@yahoo.com' };
@@ -344,8 +330,19 @@ app.get('/addproduct', (req, res) => {
   });
 });
 
+//GET ROUTES/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/', function (req, res) {
-  res.render('home');
+  var query = `SELECT image, name, description FROM product`;
+  db.query(query, function (err, data) {
+    if (err) {
+      throw err;
+    } else {
+      res.render('home', {
+        title: 'PRODUCTS LISTINGS',
+        sampleData: data,
+      });
+    }
+  });
 });
 
 app.get('/about', function (req, res) {
@@ -367,7 +364,17 @@ app.get('/register' /*, checkAuthenticated*/, function (req, res) {
 
 app.get(
   '/auth/google',
-  passport.authenticate('google', { scope: ['email', 'profile'] })
+  passport.authenticate('google', { scope: ['profile'] })
+);
+
+app.get(
+  '/auth/google/callback',
+  passport.authenticate('google', {
+    failureRedirect: '/login',
+  }),
+  function (req, res) {
+    res.redirect('/');
+  }
 );
 
 app.get('/auth/twitter', passport.authenticate('twitter'));
@@ -382,7 +389,6 @@ app.get(
 );
 
 app.get('/protected' /*, checkAuthenticated*/, (req, res) => {
-  console.log(req);
   res.render('cart');
 });
 
@@ -409,13 +415,17 @@ app.get('/admin/products', (req, res, next) => {
   });
 });
 
-app.post('/admin/products', function (req, res, next) {
+app.post('/admin/products', upload.single('image'), function (req, res, next) {
   var product_name = req.body.product_name;
-  var image_url = req.body.image_url;
+  var certification = req.body.cert;
+  var grade = req.body.grade;
+  var description = req.body.description;
+  var image = req.file.filename;
   var price = req.body.price;
   var category = req.body.category;
   var categoryId;
-  console.log(category);
+  var inventoryId;
+
   switch (category) {
     case 'Baseball':
       categoryId = 1;
@@ -433,23 +443,22 @@ app.post('/admin/products', function (req, res, next) {
       categoryId = 5;
       break;
   }
-  var query = `INSERT INTO product_inventory (quantity)
-  VALUES (1)`;
-  db.query(query, function (err, data) {
+  var query = `INSERT INTO product_inventory (quantity) VALUES (1)`;
+  db.query(query, async function (err, data) {
     if (err) {
       throw err;
     } else {
-    }
-  });
-  var query = `INSERT INTO product
-  (name, image, price, category_id)
-  VALUES ("${product_name}", "${image_url}", "${price}", "${categoryId}")`;
-  db;
-  db.query(query, function (err, data) {
-    if (err) {
-      throw err;
-    } else {
-      res.redirect('/admin/products');
+      inventoryId = data.insertId;
+      var query = `INSERT INTO product (name, cert, grade, description, image, price, category_id, inventory_id)
+      VALUES ("${product_name}", "${certification}", "${grade}", "${description}", "${image}", "${price}", "${categoryId}", "${inventoryId}" )`;
+
+      db.query(query, function (err, data) {
+        if (err) {
+          throw err;
+        } else {
+          res.redirect('/admin/products');
+        }
+      });
     }
   });
 });
@@ -462,19 +471,16 @@ app.get('/admin/users', (req, res) => {
   res.render('users');
 });
 
-//SOCIAL LOGIN/SIGNUP STRATEGIES///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//SOCIAL LOGIN/SIGNUP STRATEGIES/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.CLIENT_ID,
-      clientSecret: process.env.CLIENT_SECRET,
-      callbackURL: 'http://localhost:3000/auth/google/secrets',
-      userProfileUrl: 'https://www.googleapis.com/oauth2/v3/userinfo',
+      clientID: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      callbackURL: 'http://localhost:3000/auth/google/callback',
     },
-    function (accessToken, refreshToken, profile, cb) {
-      console.log(profile);
-    }
+    function (accessToken, refreshToken, profile, cb) {}
   )
 );
 
@@ -489,7 +495,7 @@ passport.use(
   )
 );
 
-//POST METHODS//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//POST METHODS////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Local Login
 app.post(
@@ -517,15 +523,8 @@ app.post('/register' /*, checkAuthenticated*/, async function (req, res) {
       console.log('Successful');
     }
   });
-  res.send('Success, user was added into the database!');
+  res.redirect('/protected');
 });
-
-function checkAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) {
-    return next();
-  }
-  res.redirect('/login');
-}
 
 app.delete('/logout', (req, res) => {
   req.logOut(function (err) {
@@ -536,14 +535,50 @@ app.delete('/logout', (req, res) => {
   });
 });
 
+//Starts the server
+app.listen('3000', () => {
+  console.log('Server running on port 3000');
+});
+
+//HELPER FUNCTIONS///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function findUserByEmail(email) {
+  return new Promise((resolve, reject) => {
+    db.query(`SELECT * FROM user WHERE email = ?`, [email], (err, result) => {
+      if (err) {
+        return reject(err);
+      }
+      resolve(result);
+    });
+    return resolve;
+  });
+}
+
+function findUserById(id) {
+  return new Promise((resolve, reject) => {
+    db.query(
+      `SELECT user_id FROM user WHERE user_id = ?`,
+      [id],
+      (err, result) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve(result);
+      }
+    );
+    return resolve;
+  });
+}
+
+function checkAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect('/login');
+}
+
 function checkNotAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return res.redirect('/');
   }
   next();
 }
-
-//Starts the server
-app.listen('3000', () => {
-  console.log('Server running on port 3000');
-});

@@ -9,7 +9,9 @@ async function initializePassport(passport, getUserByEmail, getUserById) {
     }
     try {
       if (await bcrypt.compare(password, user[0].password)) {
-        return done(null, user[0].user_id);
+        console.log(user);
+        console.log(user[0].user_id);
+        return done(null, user);
       } else {
         return done(null, false, { message: 'Password incorrect' });
       }
@@ -18,8 +20,10 @@ async function initializePassport(passport, getUserByEmail, getUserById) {
     }
   };
 
-  passport.use(new LocalStrategy({ usernameField: 'email' }, authenticateUser));
-  passport.serializeUser((user, done) => done(null, user));
+  await passport.use(
+    new LocalStrategy({ usernameField: 'email' }, authenticateUser)
+  );
+  passport.serializeUser((user, done) => done(null, user[0].user_id));
   passport.deserializeUser((id, done) => {
     return done(null, getUserById(id));
   });
