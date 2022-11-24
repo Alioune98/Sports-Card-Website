@@ -11,10 +11,12 @@ const bcrypt = require('bcrypt');
 const app = express();
 const flash = require('express-flash');
 const methodOverride = require('method-override');
-const initializePassport = require('./passport-config');
+const initialize = require('./passport-config');
+const registerUser = require('./passport-config');
 const multer = require('multer');
 const path = require('path');
 
+//For uploading files to the server
 const storage = multer.diskStorage({
   destination: './public/uploads/',
   filename: (req, file, cb) => {
@@ -30,7 +32,7 @@ const upload = multer({
 });
 
 //PASSPORT CONFIGURATION FOR LOGIN/REGISTER (See passport-config.js)
-initializePassport(
+initialize(
   passport,
   (email) => findUserByEmail(email),
   (id) => findUserById(id)
@@ -53,8 +55,6 @@ app.use(
   })
 );
 app.use(methodOverride('_method'));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -349,7 +349,7 @@ app.get('/about', function (req, res) {
   res.render('about');
 });
 
-app.get('/login' /*, checkNotAuthenticated*/, function (req, res) {
+app.get('/login', checkNotAuthenticated, function (req, res) {
   res.render('login');
 });
 
@@ -358,8 +358,8 @@ app.get('/logout', function (req, res) {
   req.redirect('/');
 });
 
-app.get('/register' /*, checkAuthenticated*/, function (req, res) {
-  res.render('register');
+app.get('/register', checkNotAuthenticated, function (req, res) {
+  res.render('register', { message: req.flash('message') });
 });
 
 app.get(
@@ -388,7 +388,7 @@ app.get(
   }
 );
 
-app.get('/protected' /*, checkAuthenticated*/, (req, res) => {
+app.get('/protected', checkAuthenticated, (req, res) => {
   res.render('cart');
 });
 
@@ -499,7 +499,7 @@ passport.use(
 
 //Local Login
 app.post(
-  '/login' /*, checkAuthenticated*/,
+  '/login',
   passport.authenticate('local', {
     successRedirect: '/protected',
     failureRedirect: '/login',
@@ -508,31 +508,61 @@ app.post(
 );
 
 //Local Registration
-app.post('/register' /*, checkAuthenticated*/, async function (req, res) {
-  let user = {
-    first_name: req.body.firstname,
-    last_name: req.body.lastname,
-    username: req.body.firstname + req.body.lastname,
-    email: req.body.email,
-    password: await bcrypt.hash(req.body.password, 10),
-  };
-  db.query(`INSERT INTO user SET ?`, user, function (err, res, fields) {
+app.post('/register', async function (req, res) {
+  // let user = {
+  //   first_name: req.body.firstname,
+  //   last_name: req.body.lastname,
+  //   email: req.body.email,
+  //   password: req.body.password1,
+  // };
+
+  if (
+    req.body.firstname === '' ||
+    req.body.lastname === '' ||
+    req.body.email === '' ||
+    req.body.password1 === '' ||
+    req.body.password2 === ''
+  ) {
+    req.flash('message', 'All fields must be filled to proceed');
+    res.redirect('/register');
+  } else if (req.body.password1 != req.body.password2) {
+    req.flash('message', 'Passwords must be matching');
+    res.redirect('/register');
+  }
+
+  let password = await bcrypt.hash(req.body.password1, 10);
+  let query = `SELECT * FROM user WHERE email = ?`;
+  db.query(query, req.body.email, function (err, data) {
     if (err) {
       throw err;
+    } else if (data.length === 0) {
+      console.log('User does not exist');
+      user = {
+        username: req.body.firstname + req.body.lastname,
+        first_name: req.body.firstname,
+        last_name: req.body.lastname,
+        email: req.body.email,
+        password: password,
+      };
+      db.query(`INSERT INTO user SET ?`, user, function (err, result) {
+        if (err) {
+          throw err;
+        } else {
+          console.log('Successful');
+        }
+        res.redirect('/protected');
+      });
     } else {
-      console.log('Successful');
+      console.log('User Already exists');
+      req.flash('message', 'A user with that email already exists.');
+      res.redirect('/register');
     }
   });
-  res.redirect('/protected');
 });
 
 app.delete('/logout', (req, res) => {
-  req.logOut(function (err) {
-    if (err) {
-      return next(err);
-    }
-    res.redirect('/login');
-  });
+  req.logOut();
+  res.redirect('/login');
 });
 
 //Starts the server
