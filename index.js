@@ -524,10 +524,10 @@ app.post('/register', async function (req, res) {
     req.body.password2 === ''
   ) {
     req.flash('message', 'All fields must be filled to proceed');
-    res.redirect('/register');
+    return res.redirect('/register');
   } else if (req.body.password1 != req.body.password2) {
     req.flash('message', 'Passwords must be matching');
-    res.redirect('/register');
+    return res.redirect('/register');
   }
 
   let password = await bcrypt.hash(req.body.password1, 10);
@@ -550,12 +550,12 @@ app.post('/register', async function (req, res) {
         } else {
           console.log('Successful');
         }
-        res.redirect('/protected');
+        return res.redirect('/protected');
       });
     } else {
       console.log('User Already exists');
       req.flash('message', 'A user with that email already exists.');
-      res.redirect('/register');
+      return res.redirect('/register');
     }
   });
 });
