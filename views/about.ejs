@@ -1,3 +1,91 @@
 <%- include('partials/header') %>
-<h1 class="work-in-progress">Work in Progress...</h1>
+<!DOCTYPE html>
+<center>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 65px;
+  text-align: center;
+  text-decoration: none;
+  margin: 125px 2px;
+  border-radius: 50%;
+}
+
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+.fa-youtube {
+  background: #bb0000;
+  color: white;
+}
+
+.fa-instagram {
+  background: #125688;
+  color: white;
+}
+
+
+.fa-ebay { /*Ebay needs to be fixed + add whatnot logo*/
+  background: #ffee00;
+  color: rgb(0, 0, 0);
+}
+
+</style>
+</head>
+<body>
+
+<a href="https://twitter.com/icy_cards" class="fa fa-twitter"></a>
+<a href="https://www.youtube.com/@icycards7903/featured" class="fa fa-youtube"></a>
+<a href="https://www.instagram.com/icy_cards1/" class="fa fa-instagram"></a>
+<a href="https://www.ebay.com/str/icycards1?mkcid=16&mkevt=1&mkrid=711-127632-2357-0&ssspo=A4tPfyUbSD2&sssrc=3418065&ssuid=A4tPfyUbSD2&widget_ver=artemis&media=COPY" class="fa-brands fa-ebay"></a>
+<a href="https://www.whatnot.com/user/icy_cards" class="whatnot whatnot"></a>
+
+</body>
+</html> 
+</center>
+
+<!-- Newsletter Form NOT FUNCTIONAL -->
+<div class="footer-primary-bottom grid12-12">
+  <div class="footer-primary-bottom-spacing clearer">
+    <div class="item item-left clearer block_footer_primary_bottom_left">
+      
+      </div>
+      <div class="item item-right newsletter-wrapper clearer">
+        <div id="subscribe-form" class="clearer">
+          <form action="https://localhost:3000/newsletter/subscriber/new/" 
+                method="post" 
+                id="newsletter-validate-detail"><div> 
+                  <label for="newsletter">Newsletter</label> 
+                  <div class="input-box"> 
+                    <input 
+                    name="email" 
+                    id="newsletter" 
+                    title="Sign up for our newsletter" 
+                    class="input-text required-entry validate-email" 
+                    style="background-image: url(data:image/png;base64;)" data-temp-mail-org="0"> 
+                  </div> 
+                  <button 
+                  type="submit" 
+                  title="Subscribe" 
+                  class="button btn-inline">
+                  <span>
+                    <span>Subscribe</span>
+                  </span>
+                </button> 
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- Newsletter Form NOT FUNCTIONAL -->
+
 <%- include('partials/footer') %>
