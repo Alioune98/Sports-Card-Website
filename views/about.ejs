@@ -1,91 +1,259 @@
 <%- include('partials/header') %>
-<!DOCTYPE html>
-<center>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<style>
+  <!DOCTYPE html>
 
-.fa {
-  padding: 20px;
-  font-size: 30px;
-  width: 65px;
-  text-align: center;
-  text-decoration: none;
-  margin: 125px 2px;
-  border-radius: 50%;
-}
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <style>
+    h1 {
+      margin-top: 100px;
+    }
 
-.fa-twitter {
-  background: #55ACEE;
-  color: white;
-}
+    .container {
+      display: flex;
+      margin: 10px;
 
-.fa-youtube {
-  background: #bb0000;
-  color: white;
-}
+    }
 
-.fa-instagram {
-  background: #125688;
-  color: white;
-}
+    .container>div {
+      flex-basis: 50%;
+    }
+
+    .MissionStatement {
+      font-size: 20px;
+      border-style: solid;
+      height: auto;
+      width: fit-content;
+      padding: 5px;
+    }
+
+    /* .logo {
+      width: 200px;
+      border-style: solid;
 
 
-.fa-ebay { /*Ebay needs to be fixed + add whatnot logo*/
-  background: #ffee00;
-  color: rgb(0, 0, 0);
-}
+    }
 
-</style>
-</head>
-<body>
+    .Test {
+      padding-left: 200px;
+      margin-right: 0%;
+    } */
 
-<a href="https://twitter.com/icy_cards" class="fa fa-twitter"></a>
-<a href="https://www.youtube.com/@icycards7903/featured" class="fa fa-youtube"></a>
-<a href="https://www.instagram.com/icy_cards1/" class="fa fa-instagram"></a>
-<a href="https://www.ebay.com/str/icycards1?mkcid=16&mkevt=1&mkrid=711-127632-2357-0&ssspo=A4tPfyUbSD2&sssrc=3418065&ssuid=A4tPfyUbSD2&widget_ver=artemis&media=COPY" class="fa-brands fa-ebay"></a>
-<a href="https://www.whatnot.com/user/icy_cards" class="whatnot whatnot"></a>
+    .MoreAbout {
+      font-size: 20px;
+      padding: 5px;
+      padding-right: 2vw;
+      margin-right: 4vw;
+      margin-left: 1vw;
+      border-style: solid;
+    }
 
-</body>
-</html> 
-</center>
-
-<!-- Newsletter Form NOT FUNCTIONAL -->
-<div class="footer-primary-bottom grid12-12">
-  <div class="footer-primary-bottom-spacing clearer">
-    <div class="item item-left clearer block_footer_primary_bottom_left">
+    /* .fa-instagram {
       
+      font-size: 48px;
+      color: rgb(255, 0, 128);
+      padding-right: 2vw;
+
+    }
+
+    .fa-twitter {
+      font-size: 48px;
+      color: rgb(79, 126, 212);
+      padding-right: 2vw;
+    }
+
+    .fa-youtube {
+      font-size: 48px;
+      color: rgb(255, 0, 0);
+      padding-right: 2vw;
+
+    }
+
+    .fa-ebay {
+      margin-left: 1vw;
+      font-size: 48px;
+      color: rgb(158, 184, 16);
+      padding-right: 2vw;
+
+    }
+
+    .whatnot {
+      height: 40px;
+      width: 40px;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1vw;
+    } */
+
+    .Social {
+      margin-left: 1vw;
+      display: inline;
+    }
+  </style>
+
+  <body>
+    <h1 style="padding-left: 2vw; text-decoration: underline;"> About Us:</h1>
+    <br><br>
+    <div class="container">
+      <div class="MissionStatement">
+        <h3 style="text-decoration: underline;">Our Mission</h5>
+          <p>
+            Our mission at Icy Cards Is To Provide Our Customer With Quality Sports and Entertainment
+            Cards at a Reasonable Price.
+            <br>
+            <br>
+            Not Only Do We Want It to Be Easy to Order and Manage Your Orders, But Also At Icy Cards Our Goal Is To Make
+            Sure Your Orders Are Brought to You
+            In Perfect Condition And In a Reasonable Time Frame .
+          </p>
       </div>
-      <div class="item item-right newsletter-wrapper clearer">
-        <div id="subscribe-form" class="clearer">
-          <form action="https://localhost:3000/newsletter/subscriber/new/" 
-                method="post" 
-                id="newsletter-validate-detail"><div> 
-                  <label for="newsletter">Newsletter</label> 
-                  <div class="input-box"> 
-                    <input 
-                    name="email" 
-                    id="newsletter" 
-                    title="Sign up for our newsletter" 
-                    class="input-text required-entry validate-email" 
-                    style="background-image: url(data:image/png;base64;)" data-temp-mail-org="0"> 
-                  </div> 
-                  <button 
-                  type="submit" 
-                  title="Subscribe" 
-                  class="button btn-inline">
-                  <span>
-                    <span>Subscribe</span>
-                  </span>
-                </button> 
-              </div>
-            </form>
+
+      <div class="Test">
+        <!-- <img class="logo" src="public/images/Icy Cards-logos_black-admin.png" alt="Logo"> -->
+      </div>
+      
+    </div>
+    </div>
+    <div>
+      <br><br>
+      <div class="MoreAbout">
+        <h3 style="text-decoration: underline;">More About Icy Cards:</h3>
+        <p>We Are Currently a Small Busniess Who Has a Love For Both Sport Cards and all other Entertainment Cards.
+          Selling Cards Started As a Hobby, but the More, and More Cards We Sell The Bigger Our Busniess Gets.
+          <br><br>
+          We Would Like To Thank You For Shopping At Icy Cards. Your Support Is Greatly Appreciated!
+        </p>
+      </div>
+    </div>
+    <br><br>
+    <%- include('partials/footer') %>
+    <!-- <div class="Social">
+      <h3 style="text-decoration: underline; margin-left: 1vw;">Check Us Out On:</h5>
+        <div class="Media">
+
+          <a href="https://www.instagram.com/icy_cards1/" target="_blank">
+            <i class="fa fa-instagram"></i>
+          </a>
+
+          <a href="https://twitter.com/icy_cards" target="_blank">
+            <i class="fa fa-twitter"></i>
+          </a>
+
+          <a href="https://www.youtube.com/@icycards7903/featured" target="_blank">
+            <i class="fa fa-youtube"></i>
+          </a>
+
+          <a
+            href="https://www.ebay.com/str/icycards1?mkcid=16&mkevt=1&mkrid=711-127632-2357-0&ssspo=A4tPfyUbSD2&sssrc=3418065&ssuid=A4tPfyUbSD2&widget_ver=artemis&media=COPY" target="_blank">
+            <i class="fab fa-ebay"></i>
+          </a>
+
+          <a href="https://www.whatnot.com/user/icy_cards" target="_blank">
+            <i><img class="whatnot whatnot" src="/public/images/whatnot favicon.png" alt=""></i>
+          </a>
+
+        </div>
+    </div> -->
+  </body>
+
+
+  </html>
+
+
+
+  <!-- <a href="https://twitter.com/icy_cards" class="fa fa-twitter"></a>
+      <a href="https://www.youtube.com/@icycards7903/featured" class="fa fa-youtube"></a>
+      <a href="https://www.instagram.com/icy_cards1/" class="fa fa-instagram"></a>
+      <a href="https://www.ebay.com/str/icycards1?mkcid=16&mkevt=1&mkrid=711-127632-2357-0&ssspo=A4tPfyUbSD2&sssrc=3418065&ssuid=A4tPfyUbSD2&widget_ver=artemis&media=COPY" class="fa-brands fa-ebay"></a>
+      <a href="https://www.whatnot.com/user/icy_cards" class="whatnot whatnot"></a> -->
+
+
+
+  <!-- <center>
+        <html>
+        <head>
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+          <style>
+            
+            .fa {
+              padding: 20px;
+              font-size: 30px;
+              width: 65px;
+              text-align: center;
+              text-decoration: none;
+              margin: 125px 2px;
+              border-radius: 50%;
+            }
+            
+            .fa-twitter {
+              background: #55ACEE;
+              color: white;
+            }
+            
+            .fa-youtube {
+              background: #bb0000;
+              color: white;
+            }
+            
+            .fa-instagram {
+              background: #125688;
+              color: white;
+            }
+            
+            
+            .fa-ebay { /*Ebay needs to be fixed + add whatnot logo*/
+              background: #ffee00;
+              color: rgb(0, 0, 0);
+            }
+            
+          </style>
+        </head>
+        <body>
+          
+          <a href="https://twitter.com/icy_cards" class="fa fa-twitter"></a>
+          <a href="https://www.youtube.com/@icycards7903/featured" class="fa fa-youtube"></a>
+          <a href="https://www.instagram.com/icy_cards1/" class="fa fa-instagram"></a>
+          <a href="https://www.ebay.com/str/icycards1?mkcid=16&mkevt=1&mkrid=711-127632-2357-0&ssspo=A4tPfyUbSD2&sssrc=3418065&ssuid=A4tPfyUbSD2&widget_ver=artemis&media=COPY" class="fa-brands fa-ebay"></a>
+          <a href="https://www.whatnot.com/user/icy_cards" class="whatnot whatnot"></a>
+          
+        </body>
+        </html> 
+      </center>
+      
+      Newsletter Form NOT FUNCTIONAL 
+      <div class="footer-primary-bottom grid12-12">
+        <div class="footer-primary-bottom-spacing clearer">
+          <div class="item item-left clearer block_footer_primary_bottom_left">
+            
           </div>
+          <div class="item item-right newsletter-wrapper clearer">
+            <div id="subscribe-form" class="clearer">
+              <form action="https://localhost:3000/newsletter/subscriber/new/" 
+              method="post" 
+              id="newsletter-validate-detail"><div> 
+                <label for="newsletter">Newsletter</label> 
+                <div class="input-box"> 
+                  <input 
+                  name="email" 
+                  id="newsletter" 
+                  title="Sign up for our newsletter" 
+                  class="input-text required-entry validate-email" 
+                  style="background-image: url(data:image/png;base64;)" data-temp-mail-org="0"> 
+                </div> 
+                <button 
+                type="submit" 
+                title="Subscribe" 
+                class="button btn-inline">
+                <span>
+                  <span>Subscribe</span>
+                </span>
+              </button> 
+            </div>
+          </form>
         </div>
       </div>
     </div>
-<!-- Newsletter Form NOT FUNCTIONAL -->
-
-<%- include('partials/footer') %>
+  </div>
+  Newsletter Form NOT FUNCTIONAL -->
