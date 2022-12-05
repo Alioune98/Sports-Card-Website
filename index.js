@@ -677,14 +677,12 @@ app.get('/addtocart/:productid', isLoggedIn, async (req, res) => {
 
 app.get('/allcards/:cardid', function (req, res) {
   const cardid = req.params.cardid;
-  console.log(cardid);
-  //console.log(cardid);
   let query = `SELECT * FROM product WHERE product_id = ?`;
   db.query(query, cardid, function (error, card) {
     if (error) throw error;
     else {
-      console.log('Image: ' + card[0].image);
       //console.log('Image: ' + card[0].image);
+
       res.render('allcards', {
         name: card[0].name,
         cert: card[0].cert,
