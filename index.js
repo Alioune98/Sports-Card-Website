@@ -420,7 +420,11 @@ app.get('/protected', checkAuthenticated, (req, res) => {
 });
 
 app.get('/admin', checkAuthenticated, (req, res) => {
-  res.render('dashboard');
+  if (req.session.passport.user === 1) {
+    res.render('dashboard');
+  } else {
+    res.redirect('/login');
+  }
 });
 
 app.get('/admin/products', checkAuthenticated, (req, res, next) => {
