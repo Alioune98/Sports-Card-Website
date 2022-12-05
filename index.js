@@ -333,6 +333,7 @@ app.get('/addproduct', (req, res) => {
 
 //GET ROUTES/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/', function (req, res) {
+  var authenticated = req.user === undefined ? true : false;
   var query = `SELECT product_id, image, name, description FROM product`;
   db.query(query, function (err, data) {
     if (err) {
@@ -341,13 +342,17 @@ app.get('/', function (req, res) {
       res.render('home', {
         title: 'PRODUCTS LISTINGS',
         sampleData: data,
+        isAuth: authenticated,
       });
     }
   });
 });
 
 app.get('/about', function (req, res) {
-  res.render('about');
+  var authenticated = req.user === undefined ? true : false;
+  res.render('about', {
+    isAuth: authenticated,
+  });
 });
 app.get('/policies', function (req, res) {
   res.render('policies');
@@ -398,6 +403,8 @@ app.get('/protected', checkAuthenticated, (req, res) => {
   product_id IN (SELECT product_id FROM cart_item WHERE 
   session_id IN (SELECT session_id FROM shopping_session WHERE user_id = ?))`;
 
+  var authenticated = req.user === undefined ? true : false;
+  console.log('authenticated: ' + authenticated);
   db.query(query, req.session.passport.user, function (err, data) {
     if (err) {
       throw err;
@@ -406,6 +413,7 @@ app.get('/protected', checkAuthenticated, (req, res) => {
       res.render('cart', {
         title: 'Shopping Cart',
         sampleData: data,
+        isAuth: authenticated,
       });
     }
   });
