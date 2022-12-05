@@ -131,9 +131,12 @@
               <!-- User profile and search -->
               <!-- ============================================================== -->
               <li>
-                <a class="" href="#">
+                <form action="/logout?_method=DELETE" method="POST">
+                  <button type="submit" class="btn btn-dark logout-btn">Log Out</button>
+                </form>
+                <!-- <a class="" href="/logout?_method=DELETE">
                   <span class="text-white font-medium">Logout</span>
-                </a>
+                </a> -->
               </li>
               <!-- ============================================================== -->
               <!-- User profile and search -->

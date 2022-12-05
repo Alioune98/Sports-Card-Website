@@ -591,6 +591,8 @@ app.post(
       var oldUrl = req.session.oldUrl;
       req.session.oldUrl = null;
       res.redirect(oldUrl);
+    } else if (req.session.passport.user === 1) {
+      res.redirect('/admin');
     } else {
       res.redirect('/protected');
     }
