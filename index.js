@@ -411,7 +411,7 @@ app.get('/protected', checkAuthenticated, (req, res) => {
   });
 });
 
-app.get('/admin', (req, res) => {
+app.get('/admin', checkAuthenticated, (req, res) => {
   res.render('dashboard');
 });
 
@@ -541,15 +541,15 @@ app.post('/admin/editproduct', upload.single('image'), (req, res) => {
   });
 });
 
-app.get('/admin/viewproduct', (req, res) => {
+app.get('/admin/viewproduct', checkAuthenticated, (req, res) => {
   res.redirect('/admin/products');
 });
 
-app.get('/admin/orders', (req, res) => {
+app.get('/admin/orders', checkAuthenticated, (req, res) => {
   res.render('orders');
 });
 
-app.get('/admin/users', (req, res) => {
+app.get('/admin/users', checkAuthenticated, (req, res) => {
   res.render('users');
 });
 
