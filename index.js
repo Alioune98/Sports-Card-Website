@@ -398,14 +398,15 @@ app.get(
   }
 );
 
-app.get('/protected', checkAuthenticated, (req, res) => {
-  var query = `SELECT product_id, name, cert, grade, image, price from product WHERE 
+app.get('/protected', checkAuthenticated, async (req, res) => {
+  let session = await createShoppingSession(req);
+  var query = `SELECT product_id, name, cert, grade, image, price FROM product WHERE 
   product_id IN (SELECT product_id FROM cart_item WHERE 
-  session_id IN (SELECT session_id FROM shopping_session WHERE user_id = ?))`;
+  session_id = ${session})`;
 
   var authenticated = req.user === undefined ? true : false;
   console.log('authenticated: ' + authenticated);
-  db.query(query, req.session.passport.user, function (err, data) {
+  db.query(query, function (err, data) {
     if (err) {
       throw err;
     } else {
@@ -414,6 +415,7 @@ app.get('/protected', checkAuthenticated, (req, res) => {
         title: 'Shopping Cart',
         sampleData: data,
         isAuth: authenticated,
+        checkedOut: false,
       });
     }
   });
@@ -722,24 +724,32 @@ app.get('/allcards/:cardid', function (req, res) {
   });
 });
 
-// if (req.user === undefined) {
-//   console.log('you must login first');
-//   res.redirect('/login');
-// } else {
-//   let sessionid = createShoppingSession(req);
-//   let shopping_session = {
-//     session_id: sessionid,
-//     product_id: req.body.productid,
-//     quantity: 1,
-//   };
-//   let query = `INSERT INTO cart_item SET ? `;
-//   db.query(query, shopping_session, function (err, res) {
-//     if (err) throw err;
-//     else {
-//     }
-//   });
-//   res.redirect('/protected');
-// }
+app.post('/checkout', async (req, res) => {
+  let session = await createShoppingSession(req);
+  let query = `INSERT INTO order_details(user_id) VALUES (?)`;
+  db.query(query, req.session.passport.user, (err, result) => {
+    if (err) throw err;
+    else {
+      var authenticated = req.user === undefined ? true : false;
+      let query = `SELECT product_id, name, cert, grade, image, price from product WHERE 
+      product_id IN (SELECT product_id FROM cart_item WHERE 
+      session_id IN (SELECT session_id FROM shopping_session WHERE user_id = ?))`;
+      db.query(query, req.session.passport.user, (err, data) => {
+        if (err) throw err;
+        else {
+          db.query(
+            `UPDATE shopping_session SET session_ended = 1 WHERE session_id = ${session}`
+          );
+          res.render('checkout', {
+            checkOutData: data,
+            checkedOut: true,
+            isAuth: authenticated,
+          });
+        }
+      });
+    }
+  });
+});
 
 app.delete('/logout', (req, res) => {
   req.logOut();
@@ -809,11 +819,13 @@ function createShoppingSession(req) {
   var sessionid;
   let query = `SELECT session_ended, session_id FROM shopping_session WHERE user_id = ?`;
 
-  db.query(query, userid, function (error1, results) {
+  db.query(query, [userid], function (error1, results) {
     if (error1) throw error1;
     else {
-      if (results.length != 0) {
-        return results[0].session_id;
+      if (results.length !== 0) {
+        if (results[0].session_ended == 0) {
+          return results[0].session_id;
+        }
       } else {
         //If a shopping session does not exist for this user or shopping sessions do exist
         //but are not running, then create a new shopping session

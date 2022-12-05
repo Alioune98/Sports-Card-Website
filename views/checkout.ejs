@@ -1,0 +1,83 @@
+<%if(isAuth){%> <%- include('partials/header') %> <% }else{%>
+<%-include('partials/authheader') %><% } %>
+<section class="h-100 gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-lg-10 col-xl-8">
+        <div class="card" style="border-radius: 10px">
+          <div class="card-header px-4 py-5">
+            <h5 class="text-muted mb-0">Order Confirmation</h5>
+          </div>
+          <div class="card-body p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+              <p class="lead fw-normal mb-0">Receipt</p>
+            </div>
+            <%for (let j = 0; j < checkOutData.length; j++) {%>
+            <div class="card rounded-3 mb-4">
+              <div class="card-body p-4">
+                <div
+                  class="row d-flex justify-content-between align-items-center"
+                >
+                  <div class="col-md-2 col-lg-2 col-xl-2">
+                    <img
+                      src="public/uploads/<%=checkOutData[j].image %>"
+                      class="img-fluid rounded-3"
+                      alt="<%=checkOutData.name%>"
+                    />
+                  </div>
+                  <div class="col-md-3 col-lg-3 col-xl-3">
+                    <p class="lead fw-normal mb-2">
+                      <%=checkOutData[j].name %>
+                    </p>
+                  </div>
+                  <div class="col-md-3 col-lg-3 col-xl-3">
+                    <p>
+                      <span class="text-muted">Grade:</span
+                      ><%=checkOutData[j].grade %>
+                      <span class="text-muted">Cert:</span
+                      ><%=checkOutData[j].cert %>
+                    </p>
+                  </div>
+                  <div class="col-md-3 col-lg-3 col-xl-2 d-flex"></div>
+                  <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
+                    <h5 class="mb-0">$<%=checkOutData[j].price%></h5>
+                  </div>
+                  <div class="col-md-1 col-lg-1 col-xl-1 text-end"></div>
+                </div>
+              </div>
+            </div>
+            <%}%>
+
+            <div class="d-flex justify-content-between pt-2">
+              <p class="fw-bold mb-0">Order Details</p>
+              <p class="text-muted mb-0">
+                <span class="fw-bold me-4">Total</span> $898.00
+              </p>
+            </div>
+
+            <div class="d-flex justify-content-between mb-5">
+              <p class="text-muted mb-0">
+                <span class="fw-bold me-4">Delivery Charges</span> Free
+              </p>
+            </div>
+          </div>
+          <div
+            class="card-footer border-0 px-4 py-5"
+            style="
+              background-color: #212329;
+              border-bottom-left-radius: 10px;
+              border-bottom-right-radius: 10px;
+            "
+          >
+            <h5
+              class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0"
+            >
+              Total paid: <span class="h2 mb-0 ms-2">$1040</span>
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<%- include('partials/footer') %>
