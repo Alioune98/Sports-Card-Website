@@ -1,46 +1,46 @@
 <%- include('partials/header') %>
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html>
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
-
+  
   <style>
-    .backButton {
+    .backButton{
       margin-top: 100px;
       margin-left: 20px;
       padding: 10px;
       border-radius: 10px;
-      background-color: rgb(29, 157, 216);
+      background-color: rgb(82, 152, 180);
       color: white;
       border-style: none;
     }
-
-    .card {
+    
+    .card{
+      
       height: auto;
       width: 300px;
+      
+      
     }
 
-    .cardBackground {
+    .cardBackground{
       background-color: #212329;
       width: fit-content;
       height: fit-content;
       padding: 10px;
       border-radius: 10px;
     }
-
-    .container {
+  
+    .container{
       display: flex;
       padding-bottom: 100px;
       margin-top: 40px;
       width: auto;
       height: fit-content;
     }
-    .info {
+    .info{
       margin: 50px 0px 0px 170px;
       padding: 10px;
       height: fit-content;
@@ -48,58 +48,70 @@
       background-color: #212329;
       border-radius: 10px;
     }
-    .price {
+    .price{
       font-size: 20px;
       margin-top: 20px;
       color: white;
     }
-    hr {
+    hr{
       border: solid;
       color: black;
     }
 
-    .otherInfo {
+    .otherInfo{
       background-color: white;
       border-radius: 10px;
       padding: 5px;
       height: 100px;
     }
-    .cardName {
+    .cardName{
       color: white;
+      font-size: 20px;
     }
-    .gradeAndCert {
+    .gradeAndCert{
       display: flex;
       color: white;
     }
-    .cert {
+    .cert{
       padding-right: 1vw;
     }
-    .description {
+    .description{
       color: white;
     }
-  </style>
 
+  </style>
+  
   <body>
-    <button class="backButton">&#x2190; Go Back</button>
+    <!-- <form action="/"> -->
+      <a href="/">
+        <button class="backButton">&#x2190; Go Back</button>
+      </a>
+      
+    <!-- </form> -->
+    
     <div class="container">
       <div class="cardBackground">
-        <img class="card" src="../public/uploads/<%= image %>" />
+        <img
+          class="card"
+          src="../public/uploads/<%= image %>"
+        />
       </div>
       <div class="info">
-        <h4 class="cardName">Card Name: <%= name %></h4>
+        <p class="cardName">Card Name: <b><%= name %></b></p>
         <p class="price">Price: <b>$<%= price %></b></p>
-        <hr />
+        <hr>
         <div class="gradeAndCert">
-          <p class="cert">Certification: <%= cert %></p>
-          <p class="grade">Grade: <%= grade %></p>
+          <p class="cert">Certification: <b><%= cert %></b></p>
+          <p class="grade">Grade: <b><%= grade %></b></p>
         </div>
-        <span class="description">Description:</span>
-        <br /><br />
+        <span class="description">Description:</span> 
+        <br><br> 
         <div class="otherInfo">
           <p class="descriptionBox"><b><%= description %></b></p>
         </div>
       </div>
     </div>
+    
   </body>
 </html>
 

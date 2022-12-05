@@ -349,6 +349,9 @@ app.get('/', function (req, res) {
 app.get('/about', function (req, res) {
   res.render('about');
 });
+app.get('/policies', function (req, res) {
+  res.render('policies');
+});
 
 app.get('/login', checkNotAuthenticated, function (req, res) {
   res.render('login');

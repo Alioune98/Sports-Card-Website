@@ -6,17 +6,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <style>
-    h1{
-      text-align: center;
-    }
-    .heading{
-      margin: auto;
+    h1 {
       margin-top: 100px;
     }
 
-    .container {
+    /* .container {
       display: flex;
-      margin: auto;
+      margin: 10px;
+
     }
 
     .container>div {
@@ -24,8 +21,6 @@
     }
 
     .MissionStatement {
-      display: flex;
-      margin: auto;
       font-size: 20px;
       border-style: solid;
       height: auto;
@@ -33,34 +28,91 @@
       padding: 5px;
     }
 
-    /* .logo {
-      width: 200px;
-      border-style: solid;
-
-
-    }
-
-    .Test {
-      padding-left: 200px;
-      margin-right: 0%;
-    } */
-
     .MoreAbout {
-      display: flex;
-      margin: auto;
       font-size: 20px;
       padding: 5px;
+      padding-right: 2vw;
       margin-right: 4vw;
       margin-left: 1vw;
       border-style: solid;
+    } */
+
+    .aboutUs {
+      margin-left: 1vw;
+      padding-bottom: 20px;
+      display: flex;
     }
 
-  </style>
+    .ourMission {
+      background-color: #2c2f36;
+      width: fit-content;
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+      height: 270px;
 
-  <body>
-    <div class="heading">
-      <h1  style="padding-left: 2vw; text-decoration: underline;"> About Us:</h1>
+
+    }
+
+    .ourMission2 {
+      background-color: #2c2f36;
+      width: fit-content;
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+      position: absolute; 
+      right: 0px;
+      height: 270px;
+      margin-right: 10px;
+
+
+    }
+
+    .missionText {
+      width: 400px;
+    }
+
+    .middle-logo{
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+    }
+  </style>
+  <h1 style=" margin-left: 1vw; text-decoration: underline; padding-bottom:5px;"> About Us:</h1>
+  <div class="aboutUs">
+    <br>
+    <div class="ourMission">
+      <h3 style="text-decoration: underline;">Our Mission:</h3>
+      <div class="missionText">
+        <p>
+          Our Mission at Icy Cards Is To Provide Our Customer With Quality Sports and Entertainment
+          Cards At a Reasonable Price.
+          <br>
+          <br>
+          Not Only Do We Want It To Be Easy To Order and Manage Your Orders, But Also At Icy Cards Our Goal Is To Make
+          Sure Your Orders Are Brought To You In Perfect Condition And In a Reasonable Time Frame .
+        </p>
+      </div>
     </div>
+    <!-- Might Fix Later-->
+    <!-- <div class="middle-logo">
+      <img src="/public/images/Icy Cards-logos_black-admin.png" alt=""/>
+    </div> -->
+    <div class="ourMission2">
+      <h3 style="text-decoration: underline;">More About Icy Cards:</h3>
+      <div class="missionText">
+        <p>We Are Currently a Small Busniess Who Has a Love For Both Sport Cards and All Other Entertainment Cards.
+          Selling Cards Started As a Hobby, but the More, and More Cards We Sell The Bigger Our Busniess Gets.
+          <br><br>
+          We Would Like To Thank You For Shopping At Icy Cards. Your Support Is Greatly Appreciated!
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- <body>
+    <h1 style="padding-left: 1vw; text-decoration: underline;"> About Us:</h1>
     <br><br>
     <div class="container">
       <div class="MissionStatement">
@@ -87,9 +139,8 @@
         </p>
       </div>
     </div>
-    <br><br>
-    <%- include('partials/footer') %>
-  </body>
+    <br><br> -->
+  <%- include('partials/footer') %>
+    </body>
 
-
-  </html>
+    </html>
