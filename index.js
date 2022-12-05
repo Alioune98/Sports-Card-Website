@@ -675,11 +675,13 @@ app.get('/addtocart/:productid', isLoggedIn, async (req, res) => {
 app.get('/allcards/:cardid', function (req, res) {
   const cardid = req.params.cardid;
   console.log(cardid);
+  //console.log(cardid);
   let query = `SELECT * FROM product WHERE product_id = ?`;
   db.query(query, cardid, function (error, card) {
     if (error) throw error;
     else {
       console.log('Image: ' + card[0].image);
+      //console.log('Image: ' + card[0].image);
       res.render('allcards', {
         name: card[0].name,
         cert: card[0].cert,
@@ -691,6 +693,25 @@ app.get('/allcards/:cardid', function (req, res) {
     }
   });
 });
+
+// if (req.user === undefined) {
+//   console.log('you must login first');
+//   res.redirect('/login');
+// } else {
+//   let sessionid = createShoppingSession(req);
+//   let shopping_session = {
+//     session_id: sessionid,
+//     product_id: req.body.productid,
+//     quantity: 1,
+//   };
+//   let query = `INSERT INTO cart_item SET ? `;
+//   db.query(query, shopping_session, function (err, res) {
+//     if (err) throw err;
+//     else {
+//     }
+//   });
+//   res.redirect('/protected');
+// }
 
 app.delete('/logout', (req, res) => {
   req.logOut();

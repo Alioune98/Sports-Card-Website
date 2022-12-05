@@ -127,7 +127,6 @@
 
   <div id="products" class="container marketing">
     <!-- Three columns of text below the carousel -->
-    <%for (let i = 0; i < sampleData.length/6; i++) {%>
     <div class="row">
       <%for (let j = 0; j < sampleData.length; j++) {%>
       <div class="col-lg-4">
@@ -140,7 +139,7 @@
             alt=""
           />
           <h2 class="fw-normal"><%=sampleData[j].name%></h2>
-          <p><%=sampleData[i].description%></p>
+          <p><%=sampleData[j].description%></p>
           <p>
             <a
               class="btn btn-outline-secondary btn-sm"
@@ -157,7 +156,7 @@
       </div>
       <%}%>
     </div>
-    <%}%>
+
     <!-- /.row -->
 
     <!-- Three columns of text below the carousel -->
@@ -167,7 +166,7 @@
 
     <hr class="featurette-divider" />
 
-    <div class="row featurette">
+    <!-- <div class="row featurette">
       <div class="col-md-7">
         <h2 class="featurette-heading fw-normal lh-1">
           First featurette heading.
@@ -261,10 +260,8 @@
     </div>
 
     <hr class="featurette-divider" />
-
     <!-- /END THE FEATURETTES -->
-
-    <%- include('partials/footer') %>
   </div>
+  --> <%- include('partials/footer') %>
   <!-- /.container -->
 </main>

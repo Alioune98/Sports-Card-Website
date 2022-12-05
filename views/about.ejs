@@ -1,3 +1,95 @@
 <%- include('partials/header') %>
-<h1 class="work-in-progress">Work in Progress...</h1>
-<%- include('partials/footer') %>
+  <!DOCTYPE html>
+
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <style>
+    h1{
+      text-align: center;
+    }
+    .heading{
+      margin: auto;
+      margin-top: 100px;
+    }
+
+    .container {
+      display: flex;
+      margin: auto;
+    }
+
+    .container>div {
+      flex-basis: 50%;
+    }
+
+    .MissionStatement {
+      display: flex;
+      margin: auto;
+      font-size: 20px;
+      border-style: solid;
+      height: auto;
+      width: fit-content;
+      padding: 5px;
+    }
+
+    /* .logo {
+      width: 200px;
+      border-style: solid;
+
+
+    }
+
+    .Test {
+      padding-left: 200px;
+      margin-right: 0%;
+    } */
+
+    .MoreAbout {
+      display: flex;
+      margin: auto;
+      font-size: 20px;
+      padding: 5px;
+      margin-right: 4vw;
+      margin-left: 1vw;
+      border-style: solid;
+    }
+
+  </style>
+
+  <body>
+    <div class="heading">
+      <h1  style="padding-left: 2vw; text-decoration: underline;"> About Us:</h1>
+    </div>
+    <br><br>
+    <div class="container">
+      <div class="MissionStatement">
+        <h3 style="text-decoration: underline;">Our Mission:</h5>
+          <p>
+            Our Mission at Icy Cards Is To Provide Our Customer With Quality Sports and Entertainment
+            Cards At a Reasonable Price.
+            <br>
+            <br>
+            Not Only Do We Want It To Be Easy To Order and Manage Your Orders, But Also At Icy Cards Our Goal Is To Make
+            Sure Your Orders Are Brought To You In Perfect Condition And In a Reasonable Time Frame .
+          </p>
+      </div>      
+    </div>
+    </div>
+    <div>
+      <br><br>
+      <div class="MoreAbout">
+        <h3 style="text-decoration: underline;">More About Icy Cards:</h3>
+        <p>We Are Currently a Small Busniess Who Has a Love For Both Sport Cards and All Other Entertainment Cards.
+          Selling Cards Started As a Hobby, but the More, and More Cards We Sell The Bigger Our Busniess Gets.
+          <br><br>
+          We Would Like To Thank You For Shopping At Icy Cards. Your Support Is Greatly Appreciated!
+        </p>
+      </div>
+    </div>
+    <br><br>
+    <%- include('partials/footer') %>
+  </body>
+
+
+  </html>
