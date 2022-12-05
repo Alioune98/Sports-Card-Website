@@ -399,7 +399,7 @@ app.get(
 );
 
 app.get('/protected', checkAuthenticated, (req, res) => {
-  var query = `SELECT name, cert, grade, image, price from product WHERE 
+  var query = `SELECT product_id, name, cert, grade, image, price from product WHERE 
   product_id IN (SELECT product_id FROM cart_item WHERE 
   session_id IN (SELECT session_id FROM shopping_session WHERE user_id = ?))`;
 
@@ -683,6 +683,19 @@ app.get('/addtocart/:productid', isLoggedIn, async (req, res) => {
     }
   });
   res.redirect('/protected');
+});
+
+app.post('/removefromcart', async function (req, res) {
+  let id = req.body.id;
+  let sessionid = await createShoppingSession(req);
+  let query = `DELETE FROM cart_item WHERE session_id = ${sessionid} AND product_id = ${id}`;
+  db.query(query, (err, result) => {
+    if (err) throw err;
+    else {
+      res.redirect('/protected');
+    }
+  });
+  console.log('item removed from cart');
 });
 
 app.get('/allcards/:cardid', function (req, res) {

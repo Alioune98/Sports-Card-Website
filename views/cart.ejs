@@ -62,9 +62,17 @@
                 <h5 class="mb-0">$<%=sampleData[j].price%></h5>
               </div>
               <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <a href="#!" class="text-danger"
-                  ><i class="fas fa-trash fa-lg"></i
-                ></a>
+                <form action="/removefromcart" method="post">
+                  <input
+                    type="hidden"
+                    name="id"
+                    value="<%=sampleData[j].product_id%>"
+                  />
+                  <button
+                    class="text-danger fas fa-trash fa-lg"
+                    style="border: none"
+                  ></button>
+                </form>
               </div>
             </div>
           </div>
@@ -97,9 +105,9 @@
       </div>
     </div>
   </div>
-  <form action="/logout?_method=DELETE" method="POST">
+  <!-- <form action="/logout?_method=DELETE" method="POST">
     <button type="submit" class="btn btn-dark logout-btn">Log Out</button>
-  </form>
+  </form> -->
 </section>
 
 <%- include('partials/footer') %>
