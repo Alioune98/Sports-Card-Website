@@ -1,0 +1,22 @@
+<%- include('partials/header') %>
+
+<div class="col-sm-4">
+  <div class="card">
+    <div class="card-body">
+      <h1><%= name %></h1>
+      <p>Cert: <%= cert %></p>
+      <p>Grade: <%= grade %></p>
+      <p>Description: <%= description %></p>
+      <img
+        class="card"
+        src="../public/uploads/<%= image %>"
+        alt=""
+        width="400"
+        height="400"
+      />
+      <p>Price: <%= price %></p>
+    </div>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

@@ -131,20 +131,29 @@
     <div class="row">
       <%for (let j = 0; j < sampleData.length; j++) {%>
       <div class="col-lg-4">
-        <img
-          class="card"
-          src="public/uploads/<%=sampleData[j].image%>"
-          width="400"
-          height="400"
-          alt=""
-        />
-        <h2 class="fw-normal"><%=sampleData[j].name%></h2>
-        <p><%=sampleData[i].description%></p>
-        <p>
-          <a class="btn btn-outline-secondary btn-sm" href="#"
-            >View details &raquo;</a
-          ><a class="btn btn-primary btn-sm" href="/protected"> Add to Cart</a>
-        </p>
+        <form action="/addtocart/<%=sampleData[j].product_id%>" method="GET">
+          <img
+            class="card"
+            src="public/uploads/<%=sampleData[j].image%>"
+            width="400"
+            height="400"
+            alt=""
+          />
+          <h2 class="fw-normal"><%=sampleData[j].name%></h2>
+          <p><%=sampleData[i].description%></p>
+          <p>
+            <a
+              class="btn btn-outline-secondary btn-sm"
+              href="/allcards/<%=sampleData[j].product_id%>"
+              >View details &raquo;</a
+            >
+            <input
+              type="submit"
+              class="btn btn-primary btn-sm"
+              value="Add to Cart"
+            />
+          </p>
+        </form>
       </div>
       <%}%>
     </div>
