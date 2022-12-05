@@ -15,6 +15,7 @@ const initialize = require('./passport-config');
 const registerUser = require('./passport-config');
 const multer = require('multer');
 const path = require('path');
+const { query } = require('express');
 
 //For uploading files to the server
 const storage = multer.diskStorage({
@@ -332,7 +333,7 @@ app.get('/addproduct', (req, res) => {
 
 //GET ROUTES/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/', function (req, res) {
-  var query = `SELECT image, name, description FROM product`;
+  var query = `SELECT product_id, image, name, description FROM product`;
   db.query(query, function (err, data) {
     if (err) {
       throw err;
@@ -373,6 +374,7 @@ app.get(
     failureRedirect: '/login',
   }),
   function (req, res) {
+    createShoppingSession();
     res.redirect('/');
   }
 );
@@ -389,7 +391,21 @@ app.get(
 );
 
 app.get('/protected', checkAuthenticated, (req, res) => {
-  res.render('cart');
+  var query = `SELECT name, cert, grade, image, price from product WHERE 
+  product_id IN (SELECT product_id FROM cart_item WHERE 
+  session_id IN (SELECT session_id FROM shopping_session WHERE user_id = ?))`;
+
+  db.query(query, req.session.passport.user, function (err, data) {
+    if (err) {
+      throw err;
+    } else {
+      console.log(data);
+      res.render('cart', {
+        title: 'Shopping Cart',
+        sampleData: data,
+      });
+    }
+  });
 });
 
 app.get('/admin', (req, res) => {
@@ -501,10 +517,18 @@ passport.use(
 app.post(
   '/login',
   passport.authenticate('local', {
-    successRedirect: '/protected',
     failureRedirect: '/login',
     failureFlash: true,
-  })
+  }),
+  function (req, res, next) {
+    if (req.session.oldUrl) {
+      var oldUrl = req.session.oldUrl;
+      req.session.oldUrl = null;
+      res.redirect(oldUrl);
+    } else {
+      res.redirect('/protected');
+    }
+  }
 );
 
 //Local Registration
@@ -560,6 +584,70 @@ app.post('/register', async function (req, res) {
   });
 });
 
+app.get('/addtocart/:productid', isLoggedIn, async (req, res) => {
+  var sessionid;
+  //First we need to check if the user is logged in
+  sessionid = await createShoppingSession(req);
+  console.log(req.params.productid);
+  let item = {
+    session_id: sessionid,
+    product_id: req.params.productid,
+    quantity: 1,
+  };
+  let query = `INSERT INTO cart_item SET ?`;
+  db.query(query, item, function (err, result) {
+    if (err) throw err;
+    else {
+      console.log(
+        'Item: ' +
+          item.product_id +
+          'inserted into cart for session' +
+          sessionid
+      );
+    }
+  });
+  res.redirect('/protected');
+});
+
+app.get('/allcards/:cardid', function (req, res) {
+  const cardid = req.params.cardid;
+  //console.log(cardid);
+  let query = `SELECT * FROM product WHERE product_id = ?`;
+  db.query(query, cardid, function (error, card) {
+    if (error) throw error;
+    else {
+      //console.log('Image: ' + card[0].image);
+      res.render('allcards', {
+        name: card[0].name,
+        cert: card[0].cert,
+        grade: card[0].grade,
+        description: card[0].description,
+        image: card[0].image,
+        price: card[0].price,
+      });
+    }
+  });
+});
+
+// if (req.user === undefined) {
+//   console.log('you must login first');
+//   res.redirect('/login');
+// } else {
+//   let sessionid = createShoppingSession(req);
+//   let shopping_session = {
+//     session_id: sessionid,
+//     product_id: req.body.productid,
+//     quantity: 1,
+//   };
+//   let query = `INSERT INTO cart_item SET ? `;
+//   db.query(query, shopping_session, function (err, res) {
+//     if (err) throw err;
+//     else {
+//     }
+//   });
+//   res.redirect('/protected');
+// }
+
 app.delete('/logout', (req, res) => {
   req.logOut();
   res.redirect('/login');
@@ -599,6 +687,15 @@ function findUserById(id) {
   });
 }
 
+function isLoggedIn(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  } else {
+    req.session.oldUrl = req.url;
+    res.redirect('/login');
+  }
+}
+
 function checkAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
@@ -611,4 +708,46 @@ function checkNotAuthenticated(req, res, next) {
     return res.redirect('/');
   }
   next();
+}
+
+function createShoppingSession(req) {
+  console.log('createShoppingSession' + req.body);
+  var userid = req.session.passport.user;
+  var sessionid;
+  let query = `SELECT session_ended, session_id FROM shopping_session WHERE user_id = ?`;
+
+  db.query(query, userid, function (error1, results) {
+    if (error1) throw error1;
+    else {
+      if (results.length != 0) {
+        return results[0].session_id;
+      } else {
+        //If a shopping session does not exist for this user or shopping sessions do exist
+        //but are not running, then create a new shopping session
+        query = `INSERT INTO shopping_session (user_id) VALUES (?)`;
+        db.query(query, userid, function (error, res) {
+          if (error) throw error;
+          else {
+            console.log('New Shopping session created');
+          }
+        });
+      }
+    }
+  });
+
+  return new Promise((resolve, reject) => {
+    query = `SELECT session_ended, session_id FROM shopping_session WHERE user_id = ?`;
+    db.query(query, userid, function (error, list) {
+      if (error) return reject(error);
+      else {
+        console.log('Existing session');
+        sessionid = list[0].session_id;
+        resolve(sessionid);
+      }
+    });
+    return resolve;
+  });
+  //query to get session_ended and session_id for user given the user_id (Here we are looking for any active shopping sessions
+  //that have not been ended to add products to otherwise we will create a new active session) a session is considered active
+  //if the session was started but no order was not submitted. After the order is submitted, the session is ended.
 }

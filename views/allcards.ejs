@@ -1,0 +1,130 @@
+<%- include('partials/header') %>
+<!DOCTYPE html >
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  
+  <style>
+    .backButton{
+      margin-top: 100px;
+      margin-left: 20px;
+      padding: 10px;
+      border-radius: 10px;
+      background-color: rgb(29, 157, 216);
+      color: white;
+      border-style: none;
+    }
+    
+    .card{
+      
+      height: auto;
+      width: 300px;
+      
+      
+    }
+
+    .cardBackground{
+      background-color: #212329;
+      width: fit-content;
+      height: fit-content;
+      padding: 10px;
+      border-radius: 10px;
+    }
+  
+    .container{
+      display: flex;
+      padding-bottom: 100px;
+      margin-top: 40px;
+      width: auto;
+      height: fit-content;
+    }
+    .info{
+      margin: 50px 0px 0px 170px;
+      padding: 10px;
+      height: fit-content;
+      width: 600px;
+      background-color: #212329;
+      border-radius: 10px;
+    }
+    .price{
+      font-size: 20px;
+      margin-top: 20px;
+      color: white;
+    }
+    hr{
+      border: solid;
+      color: black;
+    }
+
+    .otherInfo{
+      background-color: white;
+      border-radius: 10px;
+      padding: 5px;
+      height: 100px;
+    }
+    .cardName{
+      color: white;
+    }
+    .gradeAndCert{
+      display: flex;
+      color: white;
+    }
+    .cert{
+      padding-right: 1vw;
+    }
+    .description{
+      color: white;
+    }
+
+  </style>
+  
+  <body>
+    <button class="backButton">&#x2190; Go Back</button>
+    <div class="container">
+      <div class="cardBackground">
+        <img
+          class="card"
+          src="../public/uploads/<%= image %>"
+        />
+      </div>
+      <div class="info">
+        <h4 class="cardName">Card Name: <%= name %></h4>
+        <p class="price">Price: <b>$<%= price %></b></p>
+        <hr>
+        <div class="gradeAndCert">
+          <p class="cert">Certification: <%= cert %></p>
+          <p class="grade">Grade: <%= grade %></p>
+        </div>
+        <span class="description">Description:</span> 
+        <br><br> 
+        <div class="otherInfo">
+          <p class="descriptionBox"><b><%= description %></b></p>
+        </div>
+      </div>
+    </div>
+    
+  </body>
+</html>
+
+<%- include('partials/footer') %>
+
+<!-- <div class="col-sm-4">
+  <div class="card">
+    <div class="card-body">
+      <h1><%= name %></h1>
+      <p>Cert: <%= cert %></p>
+      <p>Grade: <%= grade %></p>
+      <p>Description: <%= description %></p>
+      <img
+        class="card"
+        src="../public/uploads/<%= image %>"
+        alt=""
+        width="400"
+        height="400"
+      />
+      <p>Price: <%= price %></p>
+    </div>
+  </div>
+</div> -->
