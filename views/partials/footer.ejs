@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
   </head>
   <style>
-    *{
+    * {
       padding: 0;
       margin: 0;
       box-sizing: border-box;
     }
-    .footer-container{
+    .footer-container {
+      position: absolute;
       background-color: #212329;
       padding: 2rem 0 4rem 0;
     }
 
-    .footer{
+    .footer {
       width: 80%;
       height: 40vh;
       background-color: #212329;
@@ -27,33 +31,32 @@
       margin: 0 auto;
     }
 
-    .footer-heading{
+    .footer-heading {
       display: flex;
       flex-direction: column;
       margin-right: 4rem;
     }
 
-    .footer-heading h2{
+    .footer-heading h2 {
       margin-bottom: 2rem;
     }
-    .footer-heading a{
+    .footer-heading a {
       color: white;
       font-size: 15px;
       text-decoration: none;
       margin-bottom: 0.5rem;
-
     }
 
-    .footer-heading a:hover{
+    .footer-heading a:hover {
       color: rgb(97, 184, 199);
       transition: 0.3 ease-out;
     }
 
-    .footer-email-form h2{
+    .footer-email-form h2 {
       margin-bottom: 2rem;
     }
 
-    #footer-email{
+    #footer-email {
       width: 250px;
       height: 40px;
       border-radius: 4px;
@@ -63,7 +66,7 @@
       margin-bottom: 1rem;
     }
 
-    #footer-email::placeholder{
+    #footer-email::placeholder {
       color: #b1b1b1;
     }
 
@@ -78,28 +81,33 @@
       font-size: 1rem;
     }
 
-    #footer-email-btn:hover{ 
+    #footer-email-btn:hover {
       cursor: pointer;
       background-color: rgb(82, 152, 180);
       transition: all 0.4s ease-out;
     }
-
   </style>
 
-<body>
-  <div class="footer-container">
-    <div class="footer">
-      <div class="footer-heading footer-1">
-        <h2>Contact Us</h2>
-        <span>General Business Inquiries:</span>
-        <a href="#" style="font-size: 15px; margin-left: 20px;">Business@icycards.xyz</a>
-        <span>Order Inquiries:</span>
-        <a href="#" style="font-size: 15px; margin-left: 20px;">Icycards1@gmail.com</a>
-
-      </div>
-      <div class="footer-heading footer-2">
-        <h2>Other Links</h2>
-        <a href="https://www.ebay.com/str/icycards1?mkcid=16&mkevt=1&mkrid=711-127632-2357-0&ssspo=A4tPfyUbSD2&sssrc=3418065&ssuid=A4tPfyUbSD2&widget_ver=artemis&media=COPY" target="_blank">
+  <body>
+    <div class="footer-container">
+      <div class="footer">
+        <div class="footer-heading footer-1">
+          <h2>Contact Us</h2>
+          <span>General Business Inquiries:</span>
+          <a href="#" style="font-size: 15px; margin-left: 20px"
+            >Business@icycards.xyz</a
+          >
+          <span>Order Inquiries:</span>
+          <a href="#" style="font-size: 15px; margin-left: 20px"
+            >Icycards1@gmail.com</a
+          >
+        </div>
+        <div class="footer-heading footer-2">
+          <h2>Other Links</h2>
+          <a
+            href="https://www.ebay.com/str/icycards1?mkcid=16&mkevt=1&mkrid=711-127632-2357-0&ssspo=A4tPfyUbSD2&sssrc=3418065&ssuid=A4tPfyUbSD2&widget_ver=artemis&media=COPY"
+            target="_blank"
+          >
             <i>ebay</i>
           </a>
           <a href="https://www.whatnot.com/user/icy_cards" target="_blank">
@@ -108,26 +116,32 @@
           <a href="/policies">
             <i>Business Policies</i>
           </a>
-
-      </div>
-      <div class="footer-heading footer-3">
-        <h2>Social Media</h2>
-        <a href="https://www.instagram.com/icy_cards1/" target="_blank">
-          <i class="fa fa-instagram"></i>
-        </a>
-        <a href="https://twitter.com/icy_cards" target="_blank">
-          <i class="fa fa-twitter"></i>
-        </a>
-        <a href="https://www.youtube.com/@icycards7903/featured" target="_blank">
-          <i class="fa fa-youtube"></i>
-        </a>
-      </div>
-      <div class="footer-email-form">
-        <h2>Join Our Newsletter</h2>
-        <input type="email" placeholder="Enter your email address" id="footer-email">
-        <input type="submit" value="Sign Up" id="footer-email-btn">
+        </div>
+        <div class="footer-heading footer-3">
+          <h2>Social Media</h2>
+          <a href="https://www.instagram.com/icy_cards1/" target="_blank">
+            <i class="fa fa-instagram"></i>
+          </a>
+          <a href="https://twitter.com/icy_cards" target="_blank">
+            <i class="fa fa-twitter"></i>
+          </a>
+          <a
+            href="https://www.youtube.com/@icycards7903/featured"
+            target="_blank"
+          >
+            <i class="fa fa-youtube"></i>
+          </a>
+        </div>
+        <div class="footer-email-form">
+          <h2>Join Our Newsletter</h2>
+          <input
+            type="email"
+            placeholder="Enter your email address"
+            id="footer-email"
+          />
+          <input type="submit" value="Sign Up" id="footer-email-btn" />
+        </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>

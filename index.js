@@ -364,7 +364,7 @@ app.get('/login', checkNotAuthenticated, function (req, res) {
 
 app.get('/logout', function (req, res) {
   req.logout();
-  req.redirect('/');
+  res.redirect('/');
 });
 
 app.get('/register', checkNotAuthenticated, function (req, res) {
@@ -423,7 +423,7 @@ app.get('/admin', checkAuthenticated, (req, res) => {
   res.render('dashboard');
 });
 
-app.get('/admin/products', (req, res, next) => {
+app.get('/admin/products', checkAuthenticated, (req, res, next) => {
   var query = `SELECT product_id, product.name as name, price, product_category.name as category, product_inventory.quantity as quantity, product.created_at
   FROM product 
   LEFT JOIN product_category
