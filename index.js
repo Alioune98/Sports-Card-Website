@@ -612,7 +612,6 @@ app.post(
     }
   }
 );
-
 //Local Registration
 app.post('/register', async function (req, res) {
   // let user = {

@@ -1,147 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
-  </head>
-  <style>
-    * {
-      padding: 0;
-      margin: 0;
-      box-sizing: border-box;
-    }
-    .footer-container {
-      position: absolute;
-      width: 100%;
-      background-color: #212329;
-      padding: 2rem 0 4rem 0;
-    }
 
-    .footer {
-      width: 80%;
-      height: 40vh;
-      background-color: #212329;
-      background-size: cover;
-      color: white;
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin: 0 auto;
-    }
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+<style>
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
 
-    .footer-heading {
-      display: flex;
-      flex-direction: column;
-      margin-right: 4rem;
-    }
+  .footer-container {
+    position: absolute;
+    width: 100%;
+    background-color: #212329;
+    padding: 2rem 0 4rem 0;
+  }
 
-    .footer-heading h2 {
-      margin-bottom: 2rem;
-    }
-    .footer-heading a {
-      color: white;
-      font-size: 15px;
-      text-decoration: none;
-      margin-bottom: 0.5rem;
-    }
+  .footer {
+    width: 80%;
+    height: 40vh;
+    background-color: #212329;
+    background-size: cover;
+    color: white;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 auto;
+  }
 
-    .footer-heading a:hover {
-      color: rgb(97, 184, 199);
-      transition: 0.3 ease-out;
-    }
+  .footer-heading {
+    display: flex;
+    flex-direction: column;
+    margin-right: 4rem;
+  }
 
-    .footer-email-form h2 {
-      margin-bottom: 2rem;
-    }
+  .footer-heading h2 {
+    margin-bottom: 2rem;
+  }
 
-    #footer-email {
-      width: 250px;
-      height: 40px;
-      border-radius: 4px;
-      outline: none;
-      padding-left: 0.5rem;
-      font-size: 1rem;
-      margin-bottom: 1rem;
-    }
+  .footer-heading a {
+    color: white;
+    font-size: 15px;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+  }
 
-    #footer-email::placeholder {
-      color: #b1b1b1;
-    }
+  .footer-heading a:hover {
+    color: rgb(97, 184, 199);
+    transition: 0.3 ease-out;
+  }
 
-    #footer-email-btn {
-      width: 100px;
-      height: 40px;
-      border-radius: 4px;
-      background-color: #92908f;
-      outline: none;
-      border: none;
-      color: white;
-      font-size: 1rem;
-    }
+  .footer-email-form h2 {
+    margin-bottom: 2rem;
+  }
 
-    #footer-email-btn:hover {
-      cursor: pointer;
-      background-color: rgb(82, 152, 180);
-      transition: all 0.4s ease-out;
-    }
-  </style>
+  #footer-email {
+    width: 250px;
+    height: 40px;
+    border-radius: 4px;
+    outline: none;
+    padding-left: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
 
-  <body>
-    <div class="footer-container">
-      <div class="footer">
-        <div class="footer-heading footer-1">
-          <h2>Contact Us</h2>
-          <span>General Business Inquiries:</span>
-          <a href="#" style="font-size: 15px; margin-left: 20px"
-            >Business@icycards.xyz</a
-          >
-          <span>Order Inquiries:</span>
-          <a href="#" style="font-size: 15px; margin-left: 20px"
-            >Icycards1@gmail.com</a
-          >
-        </div>
-        <div class="footer-heading footer-2">
-          <h2>Other Links</h2>
-          <a
-            href="https://www.ebay.com/str/icycards1?mkcid=16&mkevt=1&mkrid=711-127632-2357-0&ssspo=A4tPfyUbSD2&sssrc=3418065&ssuid=A4tPfyUbSD2&widget_ver=artemis&media=COPY"
-            target="_blank"
-          >
-            <i>ebay</i>
-          </a>
-          <a href="https://www.whatnot.com/user/icy_cards" target="_blank">
-            <i>whatnot</i>
-          </a>
-          <a href="/policies">
-            <i>Business Policies</i>
-          </a>
-        </div>
-        <div class="footer-heading footer-3">
-          <h2>Social Media</h2>
-          <a href="https://www.instagram.com/icy_cards1/" target="_blank">
-            <i class="fa fa-instagram"></i>
-          </a>
-          <a href="https://twitter.com/icy_cards" target="_blank">
-            <i class="fa fa-twitter"></i>
-          </a>
-          <a
-            href="https://www.youtube.com/@icycards7903/featured"
-            target="_blank"
-          >
-            <i class="fa fa-youtube"></i>
-          </a>
-        </div>
-        <div class="footer-email-form">
-          <h2>Join Our Newsletter</h2>
-          <input
-            type="email"
-            placeholder="Enter your email address"
-            id="footer-email"
-          />
-          <input type="submit" value="Sign Up" id="footer-email-btn" />
-        </div>
+  #footer-email::placeholder {
+    color: #b1b1b1;
+  }
+
+  #footer-email-btn {
+    width: 100px;
+    height: 40px;
+    border-radius: 4px;
+    background-color: #92908f;
+    outline: none;
+    border: none;
+    color: white;
+    font-size: 1rem;
+  }
+
+  #footer-email-btn:hover {
+    cursor: pointer;
+    background-color: rgb(82, 152, 180);
+    transition: all 0.4s ease-out;
+  }
+</style>
+
+<body>
+  <div class="footer-container">
+    <div class="footer">
+      <div class="footer-heading footer-1">
+        <h2>Contact Us</h2>
+        <span>General Business Inquiries:</span>
+        <a href="mailto: Business@icycards.xyz" style="font-size: 15px; margin-left: 20px">Business@icycards.xyz</a>
+        <span>Order Inquiries:</span>
+        <a href="mailto: Icycards1@gmail.com" style="font-size: 15px; margin-left: 20px">Icycards1@gmail.com</a>
+      </div>
+      <div class="footer-heading footer-2">
+        <h2>Other Links</h2>
+        <a href="https://www.ebay.com/str/icycards1?mkcid=16&mkevt=1&mkrid=711-127632-2357-0&ssspo=A4tPfyUbSD2&sssrc=3418065&ssuid=A4tPfyUbSD2&widget_ver=artemis&media=COPY"
+          target="_blank">
+          <i>ebay</i>
+        </a>
+        <a href="https://www.whatnot.com/user/icy_cards" target="_blank">
+          <i>whatnot</i>
+        </a>
+        <a href="/policies">
+          <i>Business Policies</i>
+        </a>
+      </div>
+      <div class="footer-heading footer-3">
+        <h2>Social Media</h2>
+        <a href="https://www.instagram.com/icy_cards1/" target="_blank">
+          <i class="fa fa-instagram"></i>
+        </a>
+        <a href="https://twitter.com/icy_cards" target="_blank">
+          <i class="fa fa-twitter"></i>
+        </a>
+        <a href="https://www.youtube.com/@icycards7903/featured" target="_blank">
+          <i class="fa fa-youtube"></i>
+        </a>
+      </div>
+      <div class="footer-email-form">
+        <h2>Join Our Newsletter</h2>
+        <input type="email" placeholder="Enter your email address" id="footer-email"
+     />
+        <input type="submit" onclick="newsLetter()" value="Sign Up" id="footer-email-btn" />
       </div>
     </div>
   </body>
@@ -152,3 +139,33 @@
     crossorigin="anonymous"
   ></script>
 </html>
+<script>
+  var emailList = [];
+
+  function newsLetter() {
+    
+    const email = document.getElementById('footer-email');
+
+    if (checkvalidateEmailAddress(email) == true) {
+      if (!emailList.includes(email)) {
+        emailList.push(email);
+        alert("You have been signed up for the newsletter!");
+      } else {
+        alert("You have already signed up for the newsletter!");
+      }
+      email.value = "";
+    } else {
+      alert("Not a valid email!");
+    }
+  };
+
+  function checkvalidateEmailAddress(emailAdress) {
+    var validRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+
+    if(emailAdress.value.match(validRegex)){
+      return true
+    }else {
+      return false;
+    }
+  };
+</script>
